@@ -1,0 +1,42 @@
+{%- macro btn(text, url, classes = []) -%}
+  {% if url %}
+<a class="btn {% if classes.length == 0%}btn-default{% else %}{{ classes | join(' ') }}{% endif %}" href="{{ url }}">{{ text }}</a>
+	{% else %}
+<button class="btn {% if classes.length == 0%}btn-default{% else %}{{ classes | join(' ') }}{% endif %}">{{ text }}</button>
+	{% endif %}
+{%- endmacro -%}
+
+{%- macro btnDefault(text, url, classes = []) -%}
+	{% set classes = (classes.push('btn-default'), classes) %}
+	{{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnPrimary(text, url, classes = []) -%}
+	{% set classes = (classes.push('btn-primary'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnSuccess(text, url, classes = []) -%}
+	{% set classes = (classes.push('btn-success'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnInfo(text, url, classes = []) -%}
+  {% set classes = (classes.push('btn-info'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnWarning(text, url, classes = []) -%}
+  {% set classes = (classes.push('btn-warning'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnDanger(text, url, classes = []) -%}
+  {% set classes = (classes.push('btn-danger'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}
+
+{%- macro btnLink(text, url, classes = []) -%}
+  {% set classes = (classes.push('btn-link'), classes) %}
+  {{ btn(text, url, classes) }}
+{%- endmacro -%}

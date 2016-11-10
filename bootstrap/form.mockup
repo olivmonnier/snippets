@@ -1,0 +1,22 @@
+{%- macro form(content, classes = []) -%}
+<form class="{{ classes | join(' ') }}">{{ content }}</form>
+{%- endmacro -%}
+
+{%- macro formInline(classes = []) -%}
+{% set classes = (classes.push('form-inline'), classes) %}
+{% set content = caller() %}
+{{ form(content, classes) }}
+{%- endmacro -%}
+
+{%- macro formHorizontal(classes = []) -%}
+{% set classes = (classes.push('form-horizontal'), classes) %}
+{% set content = caller() %}
+{{ form(content, classes) }}
+{%- endmacro -%}
+
+{%- macro formGroup(label, for, classes = [], labelClasses = []) -%}
+<div class="form-group {{ classes | join(' ') }}">
+  <label for="{{ for }}" class="{{ labelClasses | join(' ') }}">{{ label }}</label>
+  {{ caller() }}
+</div>
+{%- endmacro -%}

@@ -6,8 +6,16 @@
 <li>{{ link(text, url) }}</li>
 {%- endmacro -%}
 
+{%- macro itemDisabled(text, url) -%}
+<li class="disabled">{{ link(text, url) }}</li>
+{%- endmacro -%}
+
 {%- macro itemHeader(text) -%}
 <li class="dropdown-header">{{text}}</li>
+{%- endmacro -%}
+
+{%- macro separator() %}
+<li role="separator" class="divider"></li>
 {%- endmacro -%}
 
 {%- macro _element(value, content, classes = [], buttonClasses = [], right = false, haspopup = true, expanded = false) -%}

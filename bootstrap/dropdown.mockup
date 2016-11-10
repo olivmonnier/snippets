@@ -1,0 +1,39 @@
+{%- macro link(text, url) -%}
+<a {% if url %}href="{{ url }}"{% endif %}>{{ text }}</a>
+{%- endmacro -%}
+
+{%- macro item(text, url) -%}
+<li>{{ link(text, url) }}</li>
+{%- endmacro -%}
+
+{%- macro itemHeader(text) -%}
+<li class="dropdown-header">{{text}}</li>
+{%- endmacro -%}
+
+{%- macro _element(value, content, classes = [], buttonClasses = [], right = false, haspopup = true, expanded = false) -%}
+<button class="btn btn-default dropdown-toggle {{ buttonClasses | join(' ') }}" 
+        type="button" 
+        data-toggle="dropdown" 
+        aria-haspopup="{{haspopup}}" 
+        aria-expanded="{{expanded}}">
+    		{{ value }}
+    		<span class="caret"></span>
+</button>
+<ul class="dropdown-menu {% if right %}dropdown-menu-right{% endif %}">
+  {{ content }}
+</ul>
+{%- endmacro -%}
+
+{%- macro dropdown(value, classes = [], buttonClasses = [], right = false, haspopup = true, expanded = false) -%}
+<div class="dropdown {{ classes | join(' ') }}">
+{% set content = caller() %}
+{{ _element(value, content, classes, buttonClasses, right, haspopup, expanded) }}
+</div>
+{%- endmacro -%}
+
+{%- macro dropup(value, classes = [], buttonClasses = [], haspopup = true, expanded = false) -%}
+<div class="dropup {{ classes | join(' ') }}">
+{% set content = caller() %}
+{{ _element(value, content, classes, buttonClasses, haspopup, expanded) }}
+</div>
+{%- endmacro -%}

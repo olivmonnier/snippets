@@ -1,22 +1,71 @@
-{%- macro form(content, classes = []) -%}
+{%- macro _element(content, classes = []) -%}
 <form class="{{ classes | join(' ') }}">{{ content }}</form>
+{%- endmacro -%}
+
+{%- macro form(classes = []) -%}
+{% set content = caller() %}
+{{ _element(content, classes) }}
 {%- endmacro -%}
 
 {%- macro formInline(classes = []) -%}
 {% set classes = (classes.push('form-inline'), classes) %}
 {% set content = caller() %}
-{{ form(content, classes) }}
+{{ _element(content, classes) }}
 {%- endmacro -%}
 
 {%- macro formHorizontal(classes = []) -%}
 {% set classes = (classes.push('form-horizontal'), classes) %}
 {% set content = caller() %}
-{{ form(content, classes) }}
+{{ _element(content, classes) }}
 {%- endmacro -%}
 
-{%- macro formGroup(label, for, classes = [], labelClasses = []) -%}
-<div class="form-group {{ classes | join(' ') }}">
-  <label for="{{ for }}" class="{{ labelClasses | join(' ') }}">{{ label }}</label>
-  {{ caller() }}
-</div>
+{%- macro formGroup(label, for = '', classes = [], labelClasses = []) -%}
+  <div class="form-group {{ classes | join(' ') }}">
+    <label for="{{ for }}" class="{{ labelClasses | join(' ') }}">{{ label }}</label>
+    {{ caller() }}
+  </div>
+{%- endmacro -%}
+
+{%- macro input(name, classes = [], type = 'text', value = '', placeholder = '', disabled = false) -%}
+  <input type="{{ type }}" name = "{{ name }}" id = "{{ name }}" class = "form-control {{ classes | join(' ') }}" placeholder = "{{ placeholder }}" value = "{{ value }}" {% if disabled %}disabled{% endif %}/>
+{%- endmacro -%}
+
+{%- macro textarea(name, classes = [], rows = '10', cols = '', value = '', disabled = false) -%}
+  <textarea name="{{ name }}" id="{{ id }}" class="form-control {{ classes | join(' ') }}" rows="{{ rows }}" cols="{{ cols }}" {% if disabled %}disabled{% endif %}>{{ value }}</textarea>
+{%- endmacro -%}
+
+{%- macro select(name, classes = [], multiple = false, disabled = false) -%}
+  <select name="{{ name }}" class="form-control {{ classes | join(' ') }}" {% if multiple %}multiple{% endif %}{% if disabled %}disabled{% endif %}>{{ caller() }}</select>
+{%- endmacro -%}
+
+{%- macro checkbox(label = '', classes = [], name = '', value = '', disabled = false) -%}
+  <div class="checkbox {{ classes | join(' ') }}">
+    <label>
+  	  <input type="checkbox" name="{{ name }}" id="{{ name }}" value="{{ value }}" {% if disabled %}disabled{% endif %}/> {{ label }}
+    </label>
+  </div> 
+{%- endmacro -%}
+
+{%- macro checkboxInline(label = '', classes = [], name = '', value = '', disabled = false) -%}
+  <label class="checkbox-inline {{ classes | join(' ') }}">
+    <input type="checkbox" name="{{ name }}" id="{{ name }}" value="{{ value }}" {% if disabled %}disabled{% endif %}/> {{ label }}
+  </label>
+{%- endmacro -%}
+
+{%- macro radio(label = '', classes = [], name = '', value = '', disabled = false) -%}
+  <div class="radio {{ classes | join(' ') }}">
+    <label>
+    	<input type="radio" name="{{ name }}" id="{{ name }}" value="{{ value }}" {% if disabled %}disabled{% endif %}/> {{ label }}
+    </label>
+  </div>
+{%- endmacro -%}
+
+{%- macro radioInline(label = '', classes = [], name = '', value = '', disabled = false) -%}
+  <label class="radio-inline {{ classes | join(' ') }}">
+    <input type="radio" name="{{ name }}" id="{{ name }}" value="{{ value }}" {% if disabled %}disabled{% endif %}/> {{ label }}
+  <label>
+{%- endmacro -%}
+    
+{%- macro helpBlock(text, classes = []) -%}
+  <span class="help-block {{ classes | join(' ') }}">{{ text }}</span> 
 {%- endmacro -%}

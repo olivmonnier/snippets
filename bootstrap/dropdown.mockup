@@ -19,7 +19,7 @@
 {%- endmacro -%}
 
 {%- macro _element(value, content, classes = [], buttonClasses = [], right = false, haspopup = true, expanded = false) -%}
-<button class="btn btn-default dropdown-toggle {{ buttonClasses | join(' ') }}" 
+<button class="btn {% if buttonClasses.length == 0 %}btn-default{% endif %} dropdown-toggle {{ buttonClasses | join(' ') }}" 
         type="button" 
         data-toggle="dropdown" 
         aria-haspopup="{{haspopup}}" 
